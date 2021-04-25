@@ -14,7 +14,6 @@ public class WeatherController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("here");
         CheckSnowStatus();
 
     }
@@ -27,7 +26,9 @@ public class WeatherController : MonoBehaviour
 
     public void CheckSnowStatus()
     {
-        bool snowing = GetWeather().weather[0].main.Equals("Snow");
+        WeatherInfo currentWeather = GetWeather();
+        Debug.Log(String.Format("Got weather for {0}, is {1}", CityId, currentWeather.weather[0].main));
+        bool snowing = currentWeather.weather[0].main.Equals("Snow");
         if (snowing)
             SnowSystem.SetActive(true);
         else
