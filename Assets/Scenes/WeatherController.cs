@@ -9,19 +9,29 @@ public class WeatherController : MonoBehaviour
 {
     private const string API_KEY = "4176e58953a958e5c778f1db8803f6e7";
     public string CityId;
+    public GameObject SnowSystem;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("here");
-        WeatherInfo info = GetWeather();
-        Debug.Log(info.weather[0].main);
+        CheckSnowStatus();
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void CheckSnowStatus()
+    {
+        bool snowing = GetWeather().weather[0].main.Equals("Snow");
+        if (snowing)
+            SnowSystem.SetActive(true);
+        else
+            SnowSystem.SetActive(false);
     }
 
     private WeatherInfo GetWeather()
@@ -34,6 +44,8 @@ public class WeatherController : MonoBehaviour
         WeatherInfo info = JsonUtility.FromJson<WeatherInfo>(jsonResponse);
         return info;
     }
+
+
 }
 
 [Serializable]
