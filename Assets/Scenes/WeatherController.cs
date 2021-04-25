@@ -59,13 +59,22 @@ public class WeatherController : MonoBehaviour
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string jsonResponse = reader.ReadToEnd();
+        Debug.Log(String.Format("resp is {0}", jsonResponse));
         WeatherInfo info = JsonUtility.FromJson<WeatherInfo>(jsonResponse);
+        var output = JsonUtility.ToJson(info, true);
+        Debug.Log(output);
         return info;
     }
 
     private bool isDayTime()
     {
-        // do stuff
+        long sunRise = currentWeather.sys.sunrise;
+        long sunSet = currentWeather.sys.sunset;
+        long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        Debug.Log(String.Format("Got sunRise {0}", sunRise));
+        Debug.Log(String.Format("Got sunSet {0}", sunSet));
+        Debug.Log(String.Format("Got currentTime {0}", currentTime));
+
         return false;
     }
 
@@ -75,18 +84,10 @@ public class WeatherController : MonoBehaviour
 [Serializable]
 public class SysInfo
 {
-    public int id;
+    private int id;
     public string country;
-    public int sunrise;
-    public int sunset;
-
-    public DateTime GetSunrise() {
-        return new DateTime(sunrise);
-    }
-
-    public DateTime GetSunset() {
-        return new DateTime(sunset);
-    }
+    public long sunrise;
+    public long sunset;
 }
 [Serializable]
 public class Weather
