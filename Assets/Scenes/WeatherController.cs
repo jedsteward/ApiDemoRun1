@@ -50,6 +50,22 @@ public class WeatherController : MonoBehaviour
 }
 
 [Serializable]
+public class SysInfo
+{
+    public int id;
+    public string country;
+    public int sunrise;
+    public int sunset;
+
+    public DateTime GetSunrise() {
+        return new DateTime(sunrise);
+    }
+
+    public DateTime GetSunset() {
+        return new DateTime(sunset);
+    }
+}
+[Serializable]
 public class Weather
 {
     public int id;
@@ -61,4 +77,5 @@ public class WeatherInfo
     public int id;
 
     public List<Weather> weather;
+    public SysInfo sys;
 }
