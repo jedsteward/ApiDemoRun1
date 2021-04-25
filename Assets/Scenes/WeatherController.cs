@@ -10,6 +10,7 @@ public class WeatherController : MonoBehaviour
     private const string API_KEY = "4176e58953a958e5c778f1db8803f6e7";
     public string CityId;
     public GameObject SnowSystem;
+    public GameObject SunSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -30,9 +31,15 @@ public class WeatherController : MonoBehaviour
         Debug.Log(String.Format("Got weather for {0}, is {1}", CityId, currentWeather.weather[0].main));
         bool snowing = currentWeather.weather[0].main.Equals("Snow");
         if (snowing)
+        {
             SnowSystem.SetActive(true);
+            SunSystem.SetActive(false);
+        }
         else
+        {
             SnowSystem.SetActive(false);
+            SunSystem.SetActive(true);
+        }
     }
 
     private WeatherInfo GetWeather()
