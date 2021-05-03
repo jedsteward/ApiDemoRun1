@@ -11,12 +11,14 @@ public class WeatherController : MonoBehaviour
     public string cityId;
     public GameObject snowSystem;
     public GameObject sunSystem;
+    public GameObject label;
     private WeatherInfo currentWeather;
 
     // Start is called before the first frame update
     void Start()
     {
         currentWeather = GetWeather();
+        WriteName();
         CheckSnowStatus();
         checkDayTimeStatus();
     }
@@ -25,6 +27,12 @@ public class WeatherController : MonoBehaviour
     void Update()
     {
 
+    }
+    private void WriteName()
+    {
+        TextMesh textObject = label.GetComponent<TextMesh>();
+        textObject.text = currentWeather.name;
+        label.SetActive(true);
     }
 
     private void CheckSnowStatus()
@@ -100,7 +108,7 @@ public class Weather
 public class WeatherInfo
 {
     public int id;
-
+    public string name;
     public List<Weather> weather;
     public SysInfo sys;
 }
