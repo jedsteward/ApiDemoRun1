@@ -70,6 +70,7 @@ public class WeatherController : MonoBehaviour
     {
         long sunRise = currentWeather.sys.sunrise;
         long sunSet = currentWeather.sys.sunset;
+        Debug.Log(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() / 1000);
         long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         Debug.Log(String.Format("Got sunRise {0}", sunRise));
         Debug.Log(String.Format("Got sunSet {0}", sunSet));
